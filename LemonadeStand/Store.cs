@@ -12,5 +12,13 @@ namespace LemonadeStand
         double pricePerSugarCube;
         double pricePerIceCube;
         double pricePerCup;
+
+        public Store()
+        {
+            pricePerLemon = 0.15;
+            pricePerSugarCube = 0.02;
+            pricePerIceCube = 0.01;
+            pricePerCup = 0.04;
+        }
     }
 }

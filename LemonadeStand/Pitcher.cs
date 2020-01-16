@@ -9,5 +9,10 @@ namespace LemonadeStand
     class Pitcher
     {
         int cupsLeftInPitcher;
+
+        public Pitcher()
+        {
+            cupsLeftInPitcher = 0;
+        }
     }
 }
