@@ -9,6 +9,18 @@ namespace LemonadeStand
     class Wallet
     {
         double money;
-        double Money;
+
+        public Wallet(double money)
+        {
+            this.money = money;
+        }
+        public double Money
+        {
+            get => money;
+            set
+            {
+                money = value;
+            }
+        }
     }
 }
