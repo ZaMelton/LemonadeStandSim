@@ -88,7 +88,6 @@ namespace LemonadeStand
             }
         }
 
-<<<<<<< HEAD
         public int BuyItemsFromStore(string itemChoice)
         {
             switch (itemChoice)
@@ -126,7 +125,8 @@ namespace LemonadeStand
             {
                 wallet.Money += recipe.pricePerCup;
                 pitcher.cupsLeftInPitcher -= 1;
-=======
+            }
+        }
         public void MakePitcher()
         {
             if (CheckInventory(Lemon.name))
@@ -199,7 +199,6 @@ namespace LemonadeStand
                         Console.WriteLine("An item name is spelled wrong.");
                         return false;
                     }
->>>>>>> 19b96dfda10d00103ae98cfebc4b2f6541bb2d40
             }
         }
     }
