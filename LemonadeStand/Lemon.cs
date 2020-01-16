@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Lemon
+    class Lemon : Item
     {
         public Lemon()
         {
-
+            this.name = "lemon";
         }
     }
 }

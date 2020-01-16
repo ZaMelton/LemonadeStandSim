@@ -87,5 +87,80 @@ namespace LemonadeStand
                 return DecidePrice();
             }
         }
+
+        public void MakePitcher()
+        {
+            for (int i = 0; i < recipe.amountOfLemons; i++)
+            {
+                if (CheckInventory(new Lemon()))
+                {
+                    inventory.lemons.Remove(inventory.lemons[0]);
+                }
+            }
+            for (int j = 0; j < recipe.amountOfSugarCubes; j++)
+            {
+                if (CheckInventory(new SugarCube()))
+                {
+                    inventory.sugarCubes.Remove(inventory.sugarCubes[0]);
+                }
+            }
+            pitcher.cupsLeftInPitcher = 10;
+        }
+
+        public bool CheckInventory(Item item)
+        {
+            switch (item.name)
+            {
+                case "lemon":
+                    {
+                        if (inventory.lemons.Count < recipe.amountOfLemons)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                case "ice cube":
+                    {
+                        if (inventory.iceCubes.Count < recipe.amountOfIceCubes)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                case "sugar cube":
+                    {
+                        if (inventory.sugarCubes.Count < recipe.amountOfSugarCubes)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                case "cup":
+                    {
+                        if (inventory.cups.Count < 1)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                default:
+                    {
+                        Console.WriteLine("An item name is spelled wrong.");
+                        return false;
+                    }
+            }
+        }
     }
 }

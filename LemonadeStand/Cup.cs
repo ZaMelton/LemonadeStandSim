@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Cup
+    class Cup : Item
     {
+        public Cup()
+        {
+            this.name = "cup";
+        }
     }
 }
