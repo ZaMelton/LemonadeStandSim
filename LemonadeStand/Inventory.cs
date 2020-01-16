@@ -12,7 +12,10 @@ namespace LemonadeStand
         public List<IceCube> iceCubes;
         public List<Cup> cups;
         public List<SugarCube> sugarCubes;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 19b96dfda10d00103ae98cfebc4b2f6541bb2d40
         public Inventory()
         {
             lemons = new List<Lemon>();
