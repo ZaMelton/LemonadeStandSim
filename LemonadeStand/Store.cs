@@ -20,5 +20,13 @@ namespace LemonadeStand
             pricePerIceCube = 0.01;
             pricePerCup = 0.04;
         }
+
+        public void SellLemonToPlayer(Player player, int lemonsToSell)
+        {
+            for(int i = 0; i < lemonsToSell; i++)
+            {
+                player.wallet.Money -= pricePerLemon;
+            }
+        }
     }
 }

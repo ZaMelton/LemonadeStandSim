@@ -8,11 +8,11 @@ namespace LemonadeStand
 {
     class Player
     {
-        string name;
-        Inventory inventory;
-        Wallet wallet;
-        Recipe recipe;
-        Pitcher pitcher;
+        public string name;
+        public Inventory inventory;
+        public Wallet wallet;
+        public Recipe recipe;
+        public Pitcher pitcher;
 
         public Player(string name)
         {
@@ -85,6 +85,46 @@ namespace LemonadeStand
             {
                 Console.WriteLine("Not a valid price, please try again.");
                 return DecidePrice();
+            }
+        }
+
+        public int BuyItemsFromStore(string itemChoice)
+        {
+            switch (itemChoice)
+            {
+                case "1":
+                    Console.WriteLine("How many lemons do you want to buy?");
+                    try
+                    {
+                        int lemonsPurchased = Int32.Parse(Console.ReadLine());
+                        return lemonsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemChoice);
+                    }
+                default:
+                    Console.WriteLine("Not a valid choice. Please select options 1 - 4");
+                    return BuyItemsFromStore(itemChoice);
+            }
+
+        }
+
+        public void AddLemonsToInventory(int lemonsBought)
+        {
+            for (int i = 0; i < lemonsBought; i++)
+            {
+                inventory.lemons.Add(new Lemon());
+            }
+        }
+
+        public void SellLemonade(bool customerDecision)
+        {
+            if (customerDecision)
+            {
+                wallet.Money += recipe.pricePerCup;
+                pitcher.cupsLeftInPitcher -= 1;
             }
         }
     }
