@@ -10,7 +10,7 @@ namespace LemonadeStand
     {
         public Lemon()
         {
-            this.name = "lemon";
+            name = "lemon";
         }
     }
 }

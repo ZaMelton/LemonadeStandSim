@@ -12,6 +12,8 @@ namespace LemonadeStand
         {
             //Game game = new Game();
             Console.ReadLine();
+            IceCube i = new IceCube();
+            Console.WriteLine(IceCube.name);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace LemonadeStand
         
         public IceCube()
         {
-            this.name = "ice cube";
+            name = "ice cube";
         }
     }
 }

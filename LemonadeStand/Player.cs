@@ -90,16 +90,16 @@ namespace LemonadeStand
 
         public void MakePitcher()
         {
-            for (int i = 0; i < recipe.amountOfLemons; i++)
+            if (CheckInventory(Lemon.name))
             {
-                if (CheckInventory(new Lemon()))
+                for (int i = 0; i < recipe.amountOfLemons; i++)
                 {
                     inventory.lemons.Remove(inventory.lemons[0]);
                 }
             }
-            for (int j = 0; j < recipe.amountOfSugarCubes; j++)
+            if (CheckInventory(SugarCube.name))
             {
-                if (CheckInventory(new SugarCube()))
+                for (int j = 0; j < recipe.amountOfSugarCubes; j++)
                 {
                     inventory.sugarCubes.Remove(inventory.sugarCubes[0]);
                 }
@@ -107,9 +107,9 @@ namespace LemonadeStand
             pitcher.cupsLeftInPitcher = 10;
         }
 
-        public bool CheckInventory(Item item)
+        public bool CheckInventory(string itemName)
         {
-            switch (item.name)
+            switch (itemName)
             {
                 case "lemon":
                     {

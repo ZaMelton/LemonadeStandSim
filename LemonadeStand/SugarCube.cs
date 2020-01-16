@@ -10,7 +10,7 @@ namespace LemonadeStand
     {
         public SugarCube()
         {
-            this.name = "sugar cube";
+            name = "sugar cube";
         }
     }
 }
