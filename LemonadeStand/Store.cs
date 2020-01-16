@@ -21,9 +21,10 @@ namespace LemonadeStand
             pricePerCup = 0.04;
         }
 
-        public void SellLemonToPlayer(Player player, int lemonsToSell)
+        //Make method for all item and not just singular items?
+        public void SellItemToPlayer(Player player, int itemsToSell)
         {
-            for(int i = 0; i < lemonsToSell; i++)
+            for(int i = 0; i < itemsToSell; i++)
             {
                 player.wallet.Money -= pricePerLemon;
             }
