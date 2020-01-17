@@ -11,7 +11,6 @@ namespace LemonadeStand
         public string condition;
         public int temperature;
         private List<string> weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy"};
-        public string predictedForecast;
         Random rand = new Random();
 
         public Weather(int condition)

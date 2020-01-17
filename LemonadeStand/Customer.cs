@@ -10,9 +10,9 @@ namespace LemonadeStand
     {
         public string name;
 
-        public abstract bool BuyLemonade(bool decision);
+        public abstract bool BuyLemonade(Weather weather, Player player, Random rand);
 
-        public abstract bool DecideToBuyLemonade();
+        public abstract bool DecideToBuyLemonade(Weather weather, Player player, Random rand);
 
     }
 }
