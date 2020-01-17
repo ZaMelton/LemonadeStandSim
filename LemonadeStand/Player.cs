@@ -201,10 +201,11 @@ namespace LemonadeStand
         {
             if (customerDecision)
             {
-                if(inventory.iceCubes.Count >= 4)
+                if(inventory.iceCubes.Count >= recipe.amountOfIceCubes)
                 {
                     wallet.Money += recipe.pricePerCup;
                     pitcher.cupsLeftInPitcher -= 1;
+                    Console.WriteLine("You sold a cup of lemonade!");
                     for (int i = 0; i < recipe.amountOfIceCubes; i++)
                     {
                         inventory.iceCubes.Remove(inventory.iceCubes[0]);
@@ -214,7 +215,7 @@ namespace LemonadeStand
         }
         public void MakePitcher()
         {
-            if (CheckInventory(Lemon.name) && CheckInventory(SugarCube.name))
+            if (CheckInventory(new Lemon()) && CheckInventory(new SugarCube()))
             {
                 for (int i = 0; i < recipe.amountOfLemons; i++)
                 {
@@ -228,9 +229,9 @@ namespace LemonadeStand
             }
         }
 
-        public bool CheckInventory(string itemName)
+        public bool CheckInventory(Item item)
         {
-            switch (itemName)
+            switch (item.name)
             {
                 case "lemon":
                     {

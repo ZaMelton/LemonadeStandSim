@@ -99,9 +99,13 @@ namespace LemonadeStand
             }
             for (int i = 0; i < numOfDays; i++)
             {
-                dayList.Add(new Day());
+                dayList.Add(new Day(i));
             }
             return dayList;
+        }
+        public string GetForecast(int currentDay)
+        {
+            return $"Tomorrow will be {days[currentDay + 1].GetForecast()}";
         }
     }
 }
