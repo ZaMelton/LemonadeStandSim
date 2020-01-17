@@ -8,21 +8,53 @@ namespace LemonadeStand
 {
     class OldMan : Customer
     {
+        Random rand = new Random();
         public OldMan()
         {
             name = "Tom Brady";
         }
 
-        public override bool BuyLemonade()
+        public override bool BuyLemonade(Weather weather, Player player, Random rand)
         {
-            //for testing purposes, will not always be true
-            bool decision = DecideToBuyLemonade();
+            bool decision = DecideToBuyLemonade(weather, player, rand);
             return decision;
         }
 
-        public override bool DecideToBuyLemonade()
+        public override bool DecideToBuyLemonade(Weather weather, Player player, Random rand)
         {
-            return true;
+            int chanceToBuy = 0;
+            switch (weather.condition)
+            {
+                case ("Rainy"):
+                    {
+                        chanceToBuy += rand.Next(30,131);
+                        break;
+                    }
+                case ("Cloudy"):
+                    {
+                        chanceToBuy += rand.Next(75, 176);
+                        break;
+                    }
+                case ("Sunny"):
+                    {
+                        chanceToBuy += rand.Next(90, 191);
+                        break;
+                    }
+                case ("Windy"):
+                    {
+                        chanceToBuy += rand.Next(60, 161);
+                        break;
+                    }
+            }
+            if (player.recipe.pricePerCup <= .15)
+            {
+                chanceToBuy += 100;
+            }
+            else if (player.recipe.pricePerCup > .75)
+            {
+                chanceToBuy -= 25;
+            }
+            return (chanceToBuy >= 100);
         }
 
     }

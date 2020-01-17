@@ -13,6 +13,7 @@ namespace LemonadeStand
         private List<string> weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy"};
         public string predictedForecast;
 
+
         public Weather(int condition, Random rand)
         {
             this.condition = weatherConditions[condition];
