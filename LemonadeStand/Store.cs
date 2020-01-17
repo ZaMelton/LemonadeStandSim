@@ -21,12 +21,41 @@ namespace LemonadeStand
             pricePerCup = 0.04;
         }
 
-        //Make method for all item and not just singular items?
-        public void SellItemToPlayer(Player player, int itemsToSell)
+        public string SellItemToPlayer(Player player, int itemsToSell, string itemName)
         {
-            for(int i = 0; i < itemsToSell; i++)
+            switch (itemName)
             {
-                player.wallet.Money -= pricePerLemon;
+                case "lemon":
+                    for (int i = 0; i < itemsToSell; i++)
+                    {
+                        player.wallet.Money -= pricePerLemon;
+                    }
+                    return itemName;
+
+                case "sugar cube":
+                    for (int i = 0; i < itemsToSell; i++)
+                    {
+                        player.wallet.Money -= pricePerSugarCube;
+                    }
+                    return itemName;
+
+                case "ice cube":
+                    for (int i = 0; i < itemsToSell; i++)
+                    {
+                        player.wallet.Money -= pricePerIceCube;
+                    }
+                    return itemName;
+
+                case "cup":
+                    for (int i = 0; i < itemsToSell; i++)
+                    {
+                        player.wallet.Money -= pricePerCup;
+                    }
+                    return itemName;
+
+                default:
+                    Console.WriteLine("something wrong with sell item to player method");
+                    return " ";
             }
         }
     }
