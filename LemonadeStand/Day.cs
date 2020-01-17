@@ -10,19 +10,18 @@ namespace LemonadeStand
     {
         public Weather weather;
         public List<Customer> customers;
-        private Random rand = new Random();
         string[] dayList = new string[7] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         public string day;
 
-        public Day(int day)
+        public Day(int day, Random rand)
         {
-            this.weather = SetWeather();
+            this.weather = SetWeather(rand);
             this.day = dayList[day % 7];
         }
-        public Weather SetWeather()
+        public Weather SetWeather(Random rand)
         {
-            int condition = rand.Next(5);
-            return new Weather(condition);
+            int condition = rand.Next(4);
+            return new Weather(condition, rand);
         }
         public string GetForecast()
         {

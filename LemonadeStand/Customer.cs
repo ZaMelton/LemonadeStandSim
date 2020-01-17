@@ -10,7 +10,7 @@ namespace LemonadeStand
     {
         public string name;
 
-        public abstract bool BuyLemonade(bool decision);
+        public abstract bool BuyLemonade();
 
         public abstract bool DecideToBuyLemonade();
 

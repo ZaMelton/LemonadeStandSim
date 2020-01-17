@@ -12,78 +12,86 @@ namespace LemonadeStand
         List<Day> days;
         Store store;
         int currentDay;
+        Random rand = new Random();
 
         public Game()
         {
             player = new Player(GetName());
             store = new Store();
             days = SetDays();
-            currentDay = 1;
+            currentDay = 0;
         }
 
         public void SimulateGame()
         {
-            double dailyProfitOrLoss = 0;
+            double dailyProfitOrLoss;
             double totalProfitOrLoss = 0;
-            //everything in here is currently for testing purposes/////////////////////////////////
+
+            ////////Still testing this all out///////////////////////////////////
+            
             Customer oldMan = new OldMan();
+
             for(int i = 0; i < days.Count; i++)
             {
-                Console.WriteLine($"Day: {currentDay}");
+                UserInterface.DisplayCurrentDaysAndForecast(days, currentDay);
                 string itemName;
                 double dayStartMoney = player.wallet.Money;
                 double dayEndMoney;
                 do
                 {
-                    Console.WriteLine($"Money: ${Math.Round(player.wallet.Money, 3)}");
-                    Console.WriteLine($"lemons: {player.inventory.lemons.Count}");
-                    Console.WriteLine($"sugar cubes: {player.inventory.sugarCubes.Count}");
-                    Console.WriteLine($"ice cubes: {player.inventory.iceCubes.Count}");
-                    Console.WriteLine($"cups: {player.inventory.cups.Count}");
-                    Console.WriteLine();
-                    itemName = player.DecideItemToBuy();
+                    UserInterface.DisplayMoneyAndInventory(player);
+                    itemName = UserInterface.DecideItemToBuy();
                     if (itemName != "nothing")
                     {
-                        int itemsToBuy = player.BuyItemsFromStore(itemName);
+                        int itemsToBuy = UserInterface.BuyItemsFromStore(itemName);
                         int itemsSold = store.SellItemToPlayer(player, itemsToBuy, itemName);
                         player.AddItemsToInventory(itemsSold, itemName);
-                        Console.WriteLine($"Money: ${Math.Round(player.wallet.Money, 3)}");
-                        Console.ReadLine();
-                        Console.Clear();
+                        UserInterface.ReadAndClear();
                     }
 
                 } while (itemName != "nothing");
 
-                Console.ReadLine();
-                Console.Clear();
+                UserInterface.ReadAndClear();
+                UserInterface.DisplayMoneyAndInventory(player);
                 player.DecideRecipe();
 
                 player.MakePitcher();
-                Console.WriteLine($"lemons: {player.inventory.lemons.Count}");
-                Console.WriteLine($"sugar cubes: {player.inventory.sugarCubes.Count}");
+                Console.Clear();
 
-                bool decision = oldMan.DecideToBuyLemonade();
-                player.SellLemonade(oldMan.BuyLemonade(decision));
-                Console.WriteLine($"ice cubes: {player.inventory.iceCubes.Count}");
-                Console.WriteLine($"cups: {player.inventory.cups.Count}");
-                Console.WriteLine($"Cups left in pitcher: {player.pitcher.cupsLeftInPitcher}");
+                for(int j = 0; j < 30; j++)
+                {
+                    if(player.pitcher.cupsLeftInPitcher == 0)
+                    {
+                        if (!player.MakePitcher())
+                        {
+                            break;
+                        }
+                    }
+                    if(player.pitcher.cupsLeftInPitcher > 0)
+                    {
+                        ///Still need to fix this so its not always an old man
+                        player.SellLemonade(oldMan.BuyLemonade());
+                    }
+                }
 
-                Console.WriteLine($"Money: ${Math.Round(player.wallet.Money, 3)}");
+                UserInterface.SellCupMessage(player);
+                UserInterface.DisplayCupsLeftInPitcher(player);
+
+                UserInterface.DisplayMoney(player);
 
                 dayEndMoney = player.wallet.Money;
                 dailyProfitOrLoss = dayEndMoney - dayStartMoney;
                 totalProfitOrLoss += dailyProfitOrLoss;
-                Console.WriteLine();
-                Console.WriteLine($"Your daily profit/loss was ${dailyProfitOrLoss}");
-                Console.ReadLine();
-                Console.Clear();
+
+                string forecast = GetForecast(currentDay);
+                UserInterface.DisplayProfitsAndNextDayForecast(days, currentDay, dailyProfitOrLoss, forecast);
+                UserInterface.ReadAndClear();
 
                 currentDay++;
+                player.cupsSold = 0;
             }
-
             Console.WriteLine($"Your total gain or loss was: ${totalProfitOrLoss}");
-
-            ////////////////////////////////////////////////////////////////////////
+            Console.ReadLine();
         }
 
         public string GetName()
@@ -108,12 +116,18 @@ namespace LemonadeStand
             }
             for (int i = 0; i < numOfDays; i++)
             {
-                dayList.Add(new Day(i));
+                dayList.Add(new Day(i, rand));
             }
             return dayList;
         }
+
         public string GetForecast(int currentDay)
         {
+            if(currentDay == days.Count - 1)
+            {
+                return "There is no next day................... Because you said so.";
+            }
+
             return $"Tomorrow will be {days[currentDay + 1].GetForecast()}";
         }
     }

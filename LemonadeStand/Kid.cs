@@ -13,10 +13,10 @@ namespace LemonadeStand
             name = "Timmy";
         }
 
-        public override bool BuyLemonade(bool decision)
+        public override bool BuyLemonade()
         {
             //for testing purposes, will not always be true
-            decision = DecideToBuyLemonade();
+            bool decision = DecideToBuyLemonade();
             return decision;
         }
 

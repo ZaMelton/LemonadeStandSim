@@ -13,6 +13,7 @@ namespace LemonadeStand
         public Wallet wallet;
         public Recipe recipe;
         public Pitcher pitcher;
+        public int cupsSold;
 
         public Player(string name)
         {
@@ -25,166 +26,9 @@ namespace LemonadeStand
 
         public void DecideRecipe()
         {
-            recipe.ChangeRecipe(DecideLemons(), DecideSugarCubes(), DecideIceCubes(), DecidePrice());
-        }
-
-        public int DecideLemons()
-        {
-            Console.WriteLine("How many lemons do you want per pitcher?");
-            try
-            {
-                int amountOfLemons = Int32.Parse(Console.ReadLine());
-                return amountOfLemons;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Not a valid number, please try again.");
-                return DecideLemons();
-            }
-        }
-
-        public int DecideSugarCubes()
-        {
-            Console.WriteLine("How many sugar cubes do you want per pitcher?");
-            try
-            {
-                int amountOfSugarCubes = Int32.Parse(Console.ReadLine());
-                return amountOfSugarCubes;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Not a valid number, please try again.");
-                return DecideSugarCubes();
-            }
-        }
-
-        public int DecideIceCubes()
-        {
-            Console.WriteLine("How many ice cubes do you want per cup?");
-            try
-            {
-                int amountOfIceCubes = Int32.Parse(Console.ReadLine());
-                return amountOfIceCubes;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Not a valid number, please try again.");
-                return DecideIceCubes();
-            }
-        }
-
-        public double DecidePrice()
-        {
-            Console.WriteLine("How much money do you want to sell each cup for? (Example: 0.30)");
-            try
-            {
-                double pricePerCup = Double.Parse(Console.ReadLine());
-                return pricePerCup;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Not a valid price, please try again.");
-                return DecidePrice();
-            }
-        }
-
-        public string DecideItemToBuy()
-        {
-            Console.WriteLine("What do you want to buy?");
-            Console.WriteLine("1) Lemons");
-            Console.WriteLine("2) Sugar Cubes");
-            Console.WriteLine("3) Ice Cubes");
-            Console.WriteLine("4) Cups");
-            Console.WriteLine("5) I don't want to buy anything.");
-            string itemChoice = Console.ReadLine();
-
-            switch (itemChoice)
-            {
-                case "1":
-                    return "lemon";
-
-                case "2":
-                    return "sugar cube";
-
-                case "3":
-                    return "ice cube";
-
-                case "4":
-                    return "cup";
-
-                case "5":
-                    Console.WriteLine("You have decided to not buy anything.");
-                    return "nothing";
-
-                default:
-                    Console.WriteLine("Invalid input.");
-                    return DecideItemToBuy();
-            }
-        }
-
-        public int BuyItemsFromStore(string itemName)
-        { 
-            switch (itemName)
-            {
-                case "lemon":
-                    Console.WriteLine("How many lemons do you want to buy?");
-                    try
-                    {
-                        int itemsPurchased = Int32.Parse(Console.ReadLine());
-                        return itemsPurchased;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
-                    }
-
-                case "sugar cube":
-                    Console.WriteLine("How many sugar cubes do you want to buy?");
-                    try
-                    {
-                        int itemsPurchased = Int32.Parse(Console.ReadLine());
-                        return itemsPurchased;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
-                    }
-
-                case "ice cube":
-                    Console.WriteLine("How many ice cubes do you want to buy?");
-                    try
-                    {
-                        int itemsPurchased = Int32.Parse(Console.ReadLine());
-                        return itemsPurchased;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
-                    }
-
-                case "cup":
-                    Console.WriteLine("How many cups do you want to buy?");
-                    try
-                    {
-                        int itemsPurchased = Int32.Parse(Console.ReadLine());
-                        return itemsPurchased;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
-                    }
-                case "nothing":
-                    Console.WriteLine("You have decided to not purchase anything.");
-                    return 0;
-
-                default:
-                    Console.WriteLine("Not a valid choice. Please select options 1 - 5");
-                    return BuyItemsFromStore(DecideItemToBuy());
-            }
+            recipe.ChangeRecipe(UserInterface.DecideLemons(), UserInterface.DecideSugarCubes(), UserInterface.DecideIceCubes(), UserInterface.DecidePrice());
+            Console.ReadLine();
+            Console.Clear();
         }
 
         public void AddItemsToInventory(int itemsPurchased, string itemType)
@@ -231,7 +75,7 @@ namespace LemonadeStand
             }
         }
 
-        public void MakePitcher()
+        public bool MakePitcher()
         {
             if (CheckInventory(new Lemon()) && CheckInventory(new SugarCube()))
             {
@@ -244,6 +88,12 @@ namespace LemonadeStand
                     inventory.sugarCubes.Remove(inventory.sugarCubes[0]);
                 }
                 pitcher.cupsLeftInPitcher = 10;
+                return true;
+            }
+            else
+            {
+                UserInterface.LackIngredients();
+                return false;
             }
         }
 
@@ -318,8 +168,12 @@ namespace LemonadeStand
                     }
 
                     wallet.Money += recipe.pricePerCup;
-                    Console.WriteLine("You have sold a cup!");
+                    cupsSold++;
                 }
+            }
+            else
+            {
+                UserInterface.DeniedSaleMessage();
             }
         }
     }

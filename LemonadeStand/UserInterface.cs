@@ -6,7 +6,225 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class UserInterface
+    static class UserInterface
     {
+        public static int DecideLemons()
+        {
+            Console.WriteLine("How many lemons do you want per pitcher?");
+            try
+            {
+                int amountOfLemons = Int32.Parse(Console.ReadLine());
+                return amountOfLemons;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Not a valid number, please try again.");
+                return DecideLemons();
+            }
+        }
+
+        public static int DecideSugarCubes()
+        {
+            Console.WriteLine("How many sugar cubes do you want per pitcher?");
+            try
+            {
+                int amountOfSugarCubes = Int32.Parse(Console.ReadLine());
+                return amountOfSugarCubes;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Not a valid number, please try again.");
+                return DecideSugarCubes();
+            }
+        }
+
+        public static int DecideIceCubes()
+        {
+            Console.WriteLine("How many ice cubes do you want per cup?");
+            try
+            {
+                int amountOfIceCubes = Int32.Parse(Console.ReadLine());
+                return amountOfIceCubes;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Not a valid number, please try again.");
+                return DecideIceCubes();
+            }
+        }
+
+        public static double DecidePrice()
+        {
+            Console.WriteLine("How much money do you want to sell each cup for? (Example: 0.30)");
+            try
+            {
+                double pricePerCup = Double.Parse(Console.ReadLine());
+                return pricePerCup;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Not a valid price, please try again.");
+                return DecidePrice();
+            }
+        }
+
+        public static string DecideItemToBuy()
+        {
+            Console.WriteLine("What do you want to buy?");
+            Console.WriteLine("1) Lemons");
+            Console.WriteLine("2) Sugar Cubes");
+            Console.WriteLine("3) Ice Cubes");
+            Console.WriteLine("4) Cups");
+            Console.WriteLine("5) I don't want to buy anything.");
+            string itemChoice = Console.ReadLine();
+
+            switch (itemChoice)
+            {
+                case "1":
+                    return "lemon";
+
+                case "2":
+                    return "sugar cube";
+
+                case "3":
+                    return "ice cube";
+
+                case "4":
+                    return "cup";
+
+                case "5":
+                    Console.WriteLine("You have decided to not buy anything.");
+                    return "nothing";
+
+                default:
+                    Console.WriteLine("Invalid input.");
+                    return DecideItemToBuy();
+            }
+        }
+
+        public static int BuyItemsFromStore(string itemName)
+        {
+            switch (itemName)
+            {
+                case "lemon":
+                    Console.WriteLine("How many lemons do you want to buy?");
+                    try
+                    {
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemName);
+                    }
+
+                case "sugar cube":
+                    Console.WriteLine("How many sugar cubes do you want to buy?");
+                    try
+                    {
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemName);
+                    }
+
+                case "ice cube":
+                    Console.WriteLine("How many ice cubes do you want to buy?");
+                    try
+                    {
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemName);
+                    }
+
+                case "cup":
+                    Console.WriteLine("How many cups do you want to buy?");
+                    try
+                    {
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemName);
+                    }
+                case "nothing":
+                    Console.WriteLine("You have decided to not purchase anything.");
+                    return 0;
+
+                default:
+                    Console.WriteLine("Not a valid choice. Please select options 1 - 5");
+                    return BuyItemsFromStore(DecideItemToBuy());
+            }
+        }
+
+        public static void SellCupMessage(Player player)
+        {
+            Console.WriteLine($"You sold {player.cupsSold} cups of lemonade!");
+        }
+
+        public static void DeniedSaleMessage()
+        {
+            Console.WriteLine("The customer decided they didn't want any.");
+        }
+
+        public static void LackIngredients()
+        {
+            Console.WriteLine("You don't have enough ingredients to make a pitcher of lemonade!");
+        }
+
+        public static void DisplayMoneyAndInventory(Player player)
+        {
+            Console.WriteLine($"Money: ${Math.Round(player.wallet.Money, 3)}");
+            Console.WriteLine($"lemons: {player.inventory.lemons.Count}");
+            Console.WriteLine($"sugar cubes: {player.inventory.sugarCubes.Count}");
+            Console.WriteLine($"ice cubes: {player.inventory.iceCubes.Count}");
+            Console.WriteLine($"cups: {player.inventory.cups.Count}");
+            Console.WriteLine();
+        }
+
+        public static void DisplayMoney(Player player)
+        {
+            Console.WriteLine($"Money: ${Math.Round(player.wallet.Money, 3)}");
+        }
+
+        public static void DisplayCupsLeftInPitcher(Player player)
+        {
+            Console.WriteLine($"Cups left in pitcher: {player.pitcher.cupsLeftInPitcher}");
+        }
+
+        public static void DisplayCurrentDaysAndForecast(List<Day> days, int currentDay)
+        {
+            Console.WriteLine($"Day: {days[currentDay].day}");
+            Console.WriteLine(days[currentDay].GetForecast());
+        }
+
+        public static void DisplayProfitsAndNextDayForecast(List<Day> days, int currentDay, double dailyProfitOrLoss, string forecast)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Your daily profit/loss was ${dailyProfitOrLoss}");
+            Console.WriteLine(forecast);
+        }
+
+        public static void DisplayTotalProfitsOrLoss(double totalProfitOrLoss)
+        {
+            Console.WriteLine($"Your total gain or loss was: ${totalProfitOrLoss}");
+            Console.ReadLine();
+        }
+
+        public static void ReadAndClear()
+        {
+            Console.ReadLine();
+            Console.Clear();
+        }
     }
 }
