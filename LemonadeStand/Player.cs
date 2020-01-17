@@ -36,7 +36,7 @@ namespace LemonadeStand
                 int amountOfLemons = Int32.Parse(Console.ReadLine());
                 return amountOfLemons;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine("Not a valid number, please try again.");
                 return DecideLemons();
@@ -96,26 +96,104 @@ namespace LemonadeStand
                     Console.WriteLine("How many lemons do you want to buy?");
                     try
                     {
-                        int lemonsPurchased = Int32.Parse(Console.ReadLine());
-                        return lemonsPurchased;
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
                     }
                     catch (Exception)
                     {
                         Console.WriteLine("You didn't enter a number, please try again.");
                         return BuyItemsFromStore(itemChoice);
                     }
+
+                case "2":
+                    Console.WriteLine("How many sugar cubes do you want to buy?");
+                    try
+                    {
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemChoice);
+                    }
+
+                case "3":
+                    Console.WriteLine("How many ice cubes do you want to buy?");
+                    try
+                    {
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemChoice);
+                    }
+
+                case "4":
+                    Console.WriteLine("How many cups do you want to buy?");
+                    try
+                    {
+                        int itemsPurchased = Int32.Parse(Console.ReadLine());
+                        return itemsPurchased;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("You didn't enter a number, please try again.");
+                        return BuyItemsFromStore(itemChoice);
+                    }
+                case "5":
+                    Console.WriteLine("You have decided to not purchase anything.");
+                    return 0;
+
                 default:
                     Console.WriteLine("Not a valid choice. Please select options 1 - 4");
                     return BuyItemsFromStore(itemChoice);
             }
-
         }
 
-        public void AddLemonsToInventory(int lemonsBought)
+        public void AddItemsToInventory(int itemsBought, string itemType)
         {
-            for (int i = 0; i < lemonsBought; i++)
+            switch (itemType)
             {
-                inventory.lemons.Add(new Lemon());
+                case "lemon":
+                    {
+                        for (int i = 0; i < itemsBought; i++)
+                        {
+                            inventory.lemons.Add(new Lemon());
+                        }
+                        break;
+                    }
+                case "ice cube":
+                    {
+                        for (int i = 0; i < itemsBought; i++)
+                        {
+                            inventory.iceCubes.Add(new IceCube());
+                        }
+                        break;
+                    }
+                case "sugar cube":
+                    {
+                        for (int i = 0; i < itemsBought; i++)
+                        {
+                            inventory.sugarCubes.Add(new SugarCube());
+                        }
+                        break;
+                    }
+                case "cup":
+                    {
+                        for (int i = 0; i < itemsBought; i++)
+                        {
+                            inventory.cups.Add(new Cup());
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("An item name is spelled wrong.");
+                        break;
+                    }
             }
         }
 
@@ -123,27 +201,31 @@ namespace LemonadeStand
         {
             if (customerDecision)
             {
-                wallet.Money += recipe.pricePerCup;
-                pitcher.cupsLeftInPitcher -= 1;
+                if(inventory.iceCubes.Count >= 4)
+                {
+                    wallet.Money += recipe.pricePerCup;
+                    pitcher.cupsLeftInPitcher -= 1;
+                    for (int i = 0; i < recipe.amountOfIceCubes; i++)
+                    {
+                        inventory.iceCubes.Remove(inventory.iceCubes[0]);
+                    }
+                }
             }
         }
         public void MakePitcher()
         {
-            if (CheckInventory(Lemon.name))
+            if (CheckInventory(Lemon.name) && CheckInventory(SugarCube.name))
             {
                 for (int i = 0; i < recipe.amountOfLemons; i++)
                 {
                     inventory.lemons.Remove(inventory.lemons[0]);
                 }
-            }
-            if (CheckInventory(SugarCube.name))
-            {
                 for (int j = 0; j < recipe.amountOfSugarCubes; j++)
                 {
                     inventory.sugarCubes.Remove(inventory.sugarCubes[0]);
                 }
+                pitcher.cupsLeftInPitcher = 10;
             }
-            pitcher.cupsLeftInPitcher = 10;
         }
 
         public bool CheckInventory(string itemName)

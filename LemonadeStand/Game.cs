@@ -32,18 +32,43 @@ namespace LemonadeStand
             Console.WriteLine("2) Sugar Cubes");
             Console.WriteLine("3) Ice Cubes");
             Console.WriteLine("4) Cups");
+            Console.WriteLine("5) I don't want to buy anything.");
             string itemChoice = Console.ReadLine();
+            string itemName = "";
+            if(itemChoice == "1")
+            {
+                itemName = "lemon";
+            }
+            if (itemChoice == "2")
+            {
+                itemName = "sugar cube";
+            }
+            if (itemChoice == "3")
+            {
+                itemName = "ice cube";
+            }
+            if (itemChoice == "4")
+            {
+                itemName = "cups";
+            }
+
             ///////////////////////////////////////////
 
-            int lemonsToBuy = player.BuyItemsFromStore(itemChoice);
-            store.SellLemonToPlayer(player, lemonsToBuy);
-            player.AddLemonsToInventory(lemonsToBuy);
+            int itemsToBuy = player.BuyItemsFromStore(itemChoice);
+            store.SellItemToPlayer(player, itemsToBuy);
+            player.AddItemsToInventory(itemsToBuy, itemName);
             Console.WriteLine($"lemons: {player.inventory.lemons.Count}");
+            Console.WriteLine($"sugar cubes: {player.inventory.sugarCubes.Count}");
+            Console.WriteLine($"ice cubes: {player.inventory.iceCubes.Count}");
+            Console.WriteLine($"cups: {player.inventory.cups.Count}");
 
             player.DecideRecipe();
 
-            //player.MakePitcher();
+            player.MakePitcher();
             Console.WriteLine($"lemons: {player.inventory.lemons.Count}");
+            Console.WriteLine($"sugar cubes: {player.inventory.sugarCubes.Count}");
+            Console.WriteLine($"ice cubes: {player.inventory.iceCubes.Count}");
+            Console.WriteLine($"cups: {player.inventory.cups.Count}");
 
             player.SellLemonade(customer.BuyLemonade());
             Console.WriteLine($"Cups left in pitcher: {player.pitcher.cupsLeftInPitcher}");
