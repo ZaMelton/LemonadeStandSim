@@ -14,12 +14,21 @@ namespace LemonadeStand
         {
             this.money = money;
         }
+
         public double Money
         {
             get => money;
+
             set
             {
-                money = value;
+                if(value <= 0)
+                {
+                    money = 0;
+                }
+                else
+                {
+                    money = value;
+                }
             }
         }
     }

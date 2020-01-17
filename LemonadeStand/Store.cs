@@ -21,41 +21,79 @@ namespace LemonadeStand
             pricePerCup = 0.04;
         }
 
-        public string SellItemToPlayer(Player player, int itemsToSell, string itemName)
+        public int SellItemToPlayer(Player player, int itemsToSell, string itemName)
         {
+            int itemsSold = 0;
+
             switch (itemName)
             {
                 case "lemon":
                     for (int i = 0; i < itemsToSell; i++)
                     {
-                        player.wallet.Money -= pricePerLemon;
+                        if(player.wallet.Money > pricePerLemon)
+                        {
+                            player.wallet.Money -= pricePerLemon;
+                            itemsSold++;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"You only had enough money to buy {itemsSold} lemons.");
+                            break;
+                        }
                     }
-                    return itemName;
+                    return itemsSold;
 
                 case "sugar cube":
                     for (int i = 0; i < itemsToSell; i++)
                     {
-                        player.wallet.Money -= pricePerSugarCube;
+                        if(player.wallet.Money > pricePerSugarCube)
+                        {
+                            player.wallet.Money -= pricePerSugarCube;
+                            itemsSold++;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"You only had enough money to buy {itemsSold} sugar cubes.");
+                            break;
+                        }
                     }
-                    return itemName;
+                    return itemsSold;
 
                 case "ice cube":
                     for (int i = 0; i < itemsToSell; i++)
                     {
-                        player.wallet.Money -= pricePerIceCube;
+                        if (player.wallet.Money > pricePerIceCube)
+                        {
+                            player.wallet.Money -= pricePerIceCube;
+                            itemsSold++;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"You only had enough money to buy {itemsSold} ice cubes.");
+                            break;
+                        }
                     }
-                    return itemName;
+                    return itemsSold;
 
                 case "cup":
                     for (int i = 0; i < itemsToSell; i++)
                     {
-                        player.wallet.Money -= pricePerCup;
+                        if (player.wallet.Money > pricePerCup)
+                        {
+                            player.wallet.Money -= pricePerCup;
+                            itemsSold++;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"You only had enough money to buy {itemsSold} cups.");
+                            break;
+                        }
                     }
-                    return itemName;
+                    return itemsSold;
 
                 default:
                     Console.WriteLine("something wrong with sell item to player method");
-                    return " ";
+                    return 0;
             }
         }
     }

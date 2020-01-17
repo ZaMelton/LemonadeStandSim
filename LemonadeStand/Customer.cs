@@ -6,20 +6,13 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Customer
+    abstract class Customer
     {
         public string name;
 
-        public Customer(string name)
-        {
-            this.name = name;
-        }
+        public abstract bool BuyLemonade(bool decision);
 
-        public bool BuyLemonade()
-        {
-            //for testing purposes, will not always be true
-            bool decision = true;
-            return decision;
-        }
+        public abstract bool DecideToBuyLemonade();
+
     }
 }

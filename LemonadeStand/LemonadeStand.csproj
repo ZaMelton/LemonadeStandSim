@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alien.cs" />
     <Compile Include="Cup.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Day.cs" />
@@ -50,7 +51,10 @@
     <Compile Include="IceCube.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="Kid.cs" />
+    <Compile Include="Lady.cs" />
     <Compile Include="Lemon.cs" />
+    <Compile Include="OldMan.cs" />
     <Compile Include="Pitcher.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
@@ -58,11 +62,15 @@
     <Compile Include="Recipe.cs" />
     <Compile Include="Store.cs" />
     <Compile Include="SugarCube.cs" />
+    <Compile Include="UserInterface.cs" />
     <Compile Include="Wallet.cs" />
     <Compile Include="Weather.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

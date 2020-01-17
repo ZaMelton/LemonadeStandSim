@@ -197,7 +197,6 @@ namespace LemonadeStand
                         {
                             inventory.lemons.Add(new Lemon());
                         }
-                        Console.WriteLine($"lemons: {inventory.lemons.Count}");
                         break;
                     }
                 case "ice cube":
@@ -206,7 +205,6 @@ namespace LemonadeStand
                         {
                             inventory.iceCubes.Add(new IceCube());
                         }
-                        Console.WriteLine($"ice cubes: {inventory.iceCubes.Count}");
                         break;
                     }
                 case "sugar cube":
@@ -215,7 +213,6 @@ namespace LemonadeStand
                         {
                             inventory.sugarCubes.Add(new SugarCube());
                         }
-                        Console.WriteLine($"sugar cubes: {inventory.sugarCubes.Count}");
                         break;
                     }
                 case "cup":
@@ -224,7 +221,6 @@ namespace LemonadeStand
                         {
                             inventory.cups.Add(new Cup());
                         }
-                        Console.WriteLine($"cups: {inventory.cups.Count}");
                         break;
                     }
                 default:
@@ -311,17 +307,18 @@ namespace LemonadeStand
         {
             if (customerDecision)
             {
-                if(inventory.iceCubes.Count >= recipe.amountOfIceCubes)
+                if(inventory.iceCubes.Count >= recipe.amountOfIceCubes && inventory.cups.Count > 0)
                 {
-                    wallet.Money += recipe.pricePerCup;
                     pitcher.cupsLeftInPitcher -= 1;
                     inventory.cups.Remove(inventory.cups[0]);
-                    Console.WriteLine("You have sold a cup!");
+                    //loop to remove ice cubes
                     for (int i = 0; i < recipe.amountOfIceCubes; i++)
                     {
                         inventory.iceCubes.Remove(inventory.iceCubes[0]);
                     }
-                    
+
+                    wallet.Money += recipe.pricePerCup;
+                    Console.WriteLine("You have sold a cup!");
                 }
             }
         }
