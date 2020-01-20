@@ -167,6 +167,7 @@ namespace LemonadeStand
                         inventory.iceCubes.Remove(inventory.iceCubes[0]);
                     }
 
+                    UserInterface.SellCupMessage();
                     wallet.Money += recipe.pricePerCup;
                     cupsSold++;
                 }

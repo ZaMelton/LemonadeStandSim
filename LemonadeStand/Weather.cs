@@ -10,14 +10,13 @@ namespace LemonadeStand
     {
         public string condition;
         public int temperature;
-        private List<string> weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy"};
-        public string predictedForecast;
-
+        private List<string> weatherConditions;
 
         public Weather(int condition, Random rand)
         {
             this.condition = weatherConditions[condition];
             this.temperature = SetTemperature(rand);
+            weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy" };
         }
         public int SetTemperature(Random rand)
         {

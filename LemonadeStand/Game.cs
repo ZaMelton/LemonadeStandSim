@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace LemonadeStand
 {
@@ -16,7 +17,7 @@ namespace LemonadeStand
 
         public Game()
         {
-            player = new Player(GetName());
+            player = new Player(UserInterface.GetName());
             store = new Store();
             days = SetDays();
             currentDay = 0;
@@ -27,29 +28,13 @@ namespace LemonadeStand
             double dailyProfitOrLoss;
             double totalProfitOrLoss = 0;
 
-            ////////Still testing this all out///////////////////////////////////
-            
-            Customer oldMan = new OldMan();
-
             for(int i = 0; i < days.Count; i++)
             {
                 UserInterface.DisplayCurrentDaysAndForecast(days, currentDay);
-                string itemName;
                 double dayStartMoney = player.wallet.Money;
                 double dayEndMoney;
-                do
-                {
-                    UserInterface.DisplayMoneyAndInventory(player);
-                    itemName = UserInterface.DecideItemToBuy();
-                    if (itemName != "nothing")
-                    {
-                        int itemsToBuy = UserInterface.BuyItemsFromStore(itemName);
-                        int itemsSold = store.SellItemToPlayer(player, itemsToBuy, itemName);
-                        player.AddItemsToInventory(itemsSold, itemName);
-                        UserInterface.ReadAndClear();
-                    }
 
-                } while (itemName != "nothing");
+                BuyItems();
 
                 UserInterface.ReadAndClear();
                 UserInterface.DisplayMoneyAndInventory(player);
@@ -58,23 +43,8 @@ namespace LemonadeStand
                 player.MakePitcher();
                 Console.Clear();
 
-                for(int j = 0; j < 30; j++)
-                {
-                    if(player.pitcher.cupsLeftInPitcher == 0)
-                    {
-                        if (!player.MakePitcher())
-                        {
-                            break;
-                        }
-                    }
-                    if(player.pitcher.cupsLeftInPitcher > 0)
-                    {
-                        ///Still need to fix this so its not always an old man
-                        player.SellLemonade(oldMan.BuyLemonade());
-                    }
-                }
-
-                UserInterface.SellCupMessage(player);
+                DayOfSales(days[currentDay].customers, days);
+                UserInterface.PotentialCupsSold(player, days[currentDay].potentialCustomers);
                 UserInterface.DisplayCupsLeftInPitcher(player);
 
                 UserInterface.DisplayMoney(player);
@@ -83,21 +53,14 @@ namespace LemonadeStand
                 dailyProfitOrLoss = dayEndMoney - dayStartMoney;
                 totalProfitOrLoss += dailyProfitOrLoss;
 
-                string forecast = GetForecast(currentDay);
-                UserInterface.DisplayProfitsAndNextDayForecast(days, currentDay, dailyProfitOrLoss, forecast);
+                UserInterface.DisplayProfitsAndNextDayForecast(dailyProfitOrLoss, GetForecast(currentDay));
                 UserInterface.ReadAndClear();
 
                 currentDay++;
                 player.cupsSold = 0;
             }
-            Console.WriteLine($"Your total gain or loss was: ${totalProfitOrLoss}");
-            Console.ReadLine();
-        }
 
-        public string GetName()
-        {
-            Console.WriteLine("What is your name?");
-            return Console.ReadLine();
+            UserInterface.DisplayTotalProfitsOrLoss(totalProfitOrLoss);
         }
 
         public List<Day> SetDays()
@@ -125,10 +88,57 @@ namespace LemonadeStand
         {
             if(currentDay == days.Count - 1)
             {
-                return "There is no next day................... Because you said so.";
+                return "There is no next day................... Because you said so. The simulation is over! Let's see how you did!";
             }
 
             return $"Tomorrow will be {days[currentDay + 1].GetForecast()}";
+        }
+
+        public void BuyItems()
+        {
+            string itemName;
+            do
+            {
+                UserInterface.DisplayMoneyAndInventory(player);
+
+                itemName = UserInterface.DecideItemToBuy();
+                if (itemName != "nothing")
+                {
+                    int itemsToBuy = UserInterface.DecideNumberOfItemsToBuy(itemName);
+                    int itemsSold = store.SellItemToPlayer(player, itemsToBuy, itemName);
+                    player.AddItemsToInventory(itemsSold, itemName);
+                    UserInterface.ReadAndClear();
+                }
+
+            } while (itemName != "nothing");
+        }
+
+        public void DayOfSales(List<Customer> customers, List<Day> days)
+        {
+            //To go through 8 hours in a day
+            for (int i = 1; i <= days[currentDay].hoursInDay; i++)
+            {
+                Console.WriteLine($"Hour {i}");
+                //divide potential customers by number of hours in a day to give you a certain number of customers per hour
+                for(int j = 0; j < (days[currentDay].potentialCustomers / days[currentDay].hoursInDay); j++)
+                {
+                    if (player.pitcher.cupsLeftInPitcher == 0)
+                    {
+                        if (!player.MakePitcher())
+                        {
+                            break;
+                        }
+                    }
+
+                    int randomCustomer = rand.Next(0, customers.Count);
+                    if (player.pitcher.cupsLeftInPitcher > 0)
+                    {
+                        player.SellLemonade(customers[randomCustomer].BuyLemonade(days[currentDay].weather, player, rand));
+                        Thread.Sleep(100);
+                    }
+                }
+                UserInterface.ReadAndClear();
+            }
         }
     }
 }

@@ -8,7 +8,6 @@ namespace LemonadeStand
 {
     class OldMan : Customer
     {
-        Random rand = new Random();
         public OldMan()
         {
             name = "Tom Brady";
