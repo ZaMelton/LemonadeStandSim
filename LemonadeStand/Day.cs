@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace LemonadeStand
 {
@@ -26,7 +27,7 @@ namespace LemonadeStand
         }
         public Weather SetWeather(Random rand)
         {
-            int condition = rand.Next(4);
+           int condition = rand.Next(4);
             return new Weather(condition, rand);
         }
         public string GetForecast()
