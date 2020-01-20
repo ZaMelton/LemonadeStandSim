@@ -70,7 +70,7 @@ namespace LemonadeStand
                     if(player.pitcher.cupsLeftInPitcher > 0)
                     {
                         ///Still need to fix this so its not always an old man
-                        player.SellLemonade(oldMan.BuyLemonade());
+                        player.SellLemonade(oldMan.BuyLemonade(days[currentDay].weather, player, rand));
                     }
                 }
 

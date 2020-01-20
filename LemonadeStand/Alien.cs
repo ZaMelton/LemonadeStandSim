@@ -8,7 +8,6 @@ namespace LemonadeStand
 {
     class Alien : Customer
     {
-        Random rand = new Random();
         public Alien()
         {
             name = "Arbiter";

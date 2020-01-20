@@ -8,7 +8,6 @@ namespace LemonadeStand
 {
     class Lady : Customer
     {
-        Random rand = new Random();
         public Lady()
         {
             name = "Karen";

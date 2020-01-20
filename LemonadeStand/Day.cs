@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace LemonadeStand
 {
     class Day
     {
         public Weather weather;
-        public List<Customer> customers;
+        public List<Customer> customers = new List<Customer> {new Lady(), new OldMan(), new Kid(), new Alien() };
         string[] dayList = new string[7] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         public string day;
 
@@ -20,7 +21,7 @@ namespace LemonadeStand
         }
         public Weather SetWeather(Random rand)
         {
-            int condition = rand.Next(4);
+           int condition = rand.Next(4);
             return new Weather(condition, rand);
         }
         public string GetForecast()
