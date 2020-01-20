@@ -14,9 +14,9 @@ namespace LemonadeStand
 
         public Weather(int condition, Random rand)
         {
+            weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy" };
             this.condition = weatherConditions[condition];
             this.temperature = SetTemperature(rand);
-            weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy" };
         }
         public int SetTemperature(Random rand)
         {

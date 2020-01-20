@@ -8,6 +8,27 @@ namespace LemonadeStand
 {
     static class UserInterface
     {
+
+        public static string DecidePlayerCount()
+        {
+            string playerCount;
+
+            Console.WriteLine("Select an option: ");
+            Console.WriteLine("1) One player");
+            Console.WriteLine("2) Two player");
+
+            playerCount = Console.ReadLine();
+            switch (playerCount)
+            {
+                case "1":
+                    return "one";
+                case "2":
+                    return "two";
+                default:
+                    return DecidePlayerCount();
+            }
+        }
+
         public static string GetName()
         {
             Console.WriteLine("What is your name?");
@@ -216,7 +237,7 @@ namespace LemonadeStand
         public static void DisplayCurrentDaysAndForecast(List<Day> days, int currentDay)
         {
             Console.WriteLine($"Day: {days[currentDay].day}");
-            Console.WriteLine(days[currentDay].GetForecast());
+            Console.WriteLine($"Weather: {days[currentDay].GetForecast()}");
         }
 
         public static void DisplayProfitsAndNextDayForecast(double dailyProfitOrLoss, string forecast)
@@ -230,6 +251,16 @@ namespace LemonadeStand
         {
             Console.WriteLine($"Your total gain or loss was: ${Math.Round(totalProfitOrLoss, 3)}");
             Console.ReadLine();
+        }
+
+        public static void DisplayPlayerName(Player player)
+        {
+            Console.WriteLine(player.name);
+        }
+
+        public static void SoldOutMessage()
+        {
+            Console.WriteLine("You're sold out!");
         }
 
         public static void ReadAndClear()

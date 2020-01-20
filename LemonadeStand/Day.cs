@@ -17,10 +17,10 @@ namespace LemonadeStand
 
         public Day(int day, Random rand)
         {
-            this.weather = SetWeather(rand);
-            this.day = dayList[day % 7];
             dayList = new string[7] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             customers = new List<Customer> { new Lady(), new OldMan(), new Kid(), new Alien() };
+            this.weather = SetWeather(rand);
+            this.day = dayList[day % 7];
             potentialCustomers = 40;
             hoursInDay = 8;
         }
