@@ -9,6 +9,7 @@ namespace LemonadeStand
     abstract class Customer
     {
         public string name;
+
         public abstract bool BuyLemonade(Weather weather, Player player, Random rand);
 
         public abstract bool DecideToBuyLemonade(Weather weather, Player player, Random rand);

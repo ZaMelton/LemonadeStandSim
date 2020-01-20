@@ -12,6 +12,7 @@ namespace LemonadeStand
         {
             name = "Timmy";
         }
+
         public override bool BuyLemonade(Weather weather, Player player, Random rand)
         {
             bool decision = DecideToBuyLemonade(weather, player, rand);

@@ -8,6 +8,12 @@ namespace LemonadeStand
 {
     static class UserInterface
     {
+        public static string GetName()
+        {
+            Console.WriteLine("What is your name?");
+            return Console.ReadLine();
+        }
+
         public static int DecideLemons()
         {
             Console.WriteLine("How many lemons do you want per pitcher?");
@@ -102,7 +108,7 @@ namespace LemonadeStand
             }
         }
 
-        public static int BuyItemsFromStore(string itemName)
+        public static int DecideNumberOfItemsToBuy(string itemName)
         {
             switch (itemName)
             {
@@ -116,7 +122,7 @@ namespace LemonadeStand
                     catch (Exception)
                     {
                         Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
+                        return DecideNumberOfItemsToBuy(itemName);
                     }
 
                 case "sugar cube":
@@ -129,7 +135,7 @@ namespace LemonadeStand
                     catch (Exception)
                     {
                         Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
+                        return DecideNumberOfItemsToBuy(itemName);
                     }
 
                 case "ice cube":
@@ -142,7 +148,7 @@ namespace LemonadeStand
                     catch (Exception)
                     {
                         Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
+                        return DecideNumberOfItemsToBuy(itemName);
                     }
 
                 case "cup":
@@ -155,7 +161,7 @@ namespace LemonadeStand
                     catch (Exception)
                     {
                         Console.WriteLine("You didn't enter a number, please try again.");
-                        return BuyItemsFromStore(itemName);
+                        return DecideNumberOfItemsToBuy(itemName);
                     }
                 case "nothing":
                     Console.WriteLine("You have decided to not purchase anything.");
@@ -163,18 +169,23 @@ namespace LemonadeStand
 
                 default:
                     Console.WriteLine("Not a valid choice. Please select options 1 - 5");
-                    return BuyItemsFromStore(DecideItemToBuy());
+                    return DecideNumberOfItemsToBuy(DecideItemToBuy());
             }
         }
 
-        public static void SellCupMessage(Player player)
+        public static void SellCupMessage()
         {
-            Console.WriteLine($"You sold {player.cupsSold} cups of lemonade!");
+            Console.WriteLine($"You sold a cup of lemonade!");
         }
 
         public static void DeniedSaleMessage()
         {
             Console.WriteLine("The customer decided they didn't want any.");
+        }
+
+        public static void PotentialCupsSold(Player player, int potentialCustomers)
+        {
+            Console.WriteLine($"You sold {player.cupsSold} to {potentialCustomers} potential customers.");
         }
 
         public static void LackIngredients()
@@ -208,16 +219,16 @@ namespace LemonadeStand
             Console.WriteLine(days[currentDay].GetForecast());
         }
 
-        public static void DisplayProfitsAndNextDayForecast(List<Day> days, int currentDay, double dailyProfitOrLoss, string forecast)
+        public static void DisplayProfitsAndNextDayForecast(double dailyProfitOrLoss, string forecast)
         {
             Console.WriteLine();
-            Console.WriteLine($"Your daily profit/loss was ${dailyProfitOrLoss}");
+            Console.WriteLine($"Your daily profit/loss was ${Math.Round(dailyProfitOrLoss, 3)}");
             Console.WriteLine(forecast);
         }
 
         public static void DisplayTotalProfitsOrLoss(double totalProfitOrLoss)
         {
-            Console.WriteLine($"Your total gain or loss was: ${totalProfitOrLoss}");
+            Console.WriteLine($"Your total gain or loss was: ${Math.Round(totalProfitOrLoss, 3)}");
             Console.ReadLine();
         }
 
