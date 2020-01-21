@@ -134,46 +134,16 @@ namespace LemonadeStand
             switch (itemName)
             {
                 case "lemon":
-                    Console.WriteLine("How many lemons do you want to buy?");
-                    try
-                    {
-                        int itemsPurchased = Int32.Parse(Console.ReadLine());
-                        return itemsPurchased;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You didn't enter a number, please try again.");
-                        return DecideNumberOfItemsToBuy(itemName);
-                    }
 
+                    
                 case "sugar cube":
-                    Console.WriteLine("How many sugar cubes do you want to buy?");
-                    try
-                    {
-                        int itemsPurchased = Int32.Parse(Console.ReadLine());
-                        return itemsPurchased;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You didn't enter a number, please try again.");
-                        return DecideNumberOfItemsToBuy(itemName);
-                    }
+
 
                 case "ice cube":
-                    Console.WriteLine("How many ice cubes do you want to buy?");
-                    try
-                    {
-                        int itemsPurchased = Int32.Parse(Console.ReadLine());
-                        return itemsPurchased;
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("You didn't enter a number, please try again.");
-                        return DecideNumberOfItemsToBuy(itemName);
-                    }
+
 
                 case "cup":
-                    Console.WriteLine("How many cups do you want to buy?");
+                    Console.WriteLine($"How many {itemName}s do you want to buy?");
                     try
                     {
                         int itemsPurchased = Int32.Parse(Console.ReadLine());

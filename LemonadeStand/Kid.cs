@@ -45,6 +45,7 @@ namespace LemonadeStand
                         break;
                     }
             }
+
             if (player.recipe.pricePerCup > .25)
             {
                 chanceToBuy -= 100;

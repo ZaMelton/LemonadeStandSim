@@ -17,6 +17,5 @@ namespace LemonadeStand
             sim.SimulateGame();
             Console.ReadLine();
         }
-        
     }
 }
