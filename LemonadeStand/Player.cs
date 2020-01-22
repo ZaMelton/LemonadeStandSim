@@ -14,6 +14,10 @@ namespace LemonadeStand
         public Recipe recipe;
         public Pitcher pitcher;
         public int cupsSold;
+        public double dayStartMoney;
+        public double dayEndMoney;
+        public double dailyProfitOrLoss;
+        public double totalProfitOrLoss;
 
         public Player(string name)
         {
@@ -22,6 +26,7 @@ namespace LemonadeStand
             inventory = new Inventory();
             recipe = new Recipe();
             pitcher = new Pitcher();
+            dayStartMoney = 20;
         }
 
         public void DecideRecipe()

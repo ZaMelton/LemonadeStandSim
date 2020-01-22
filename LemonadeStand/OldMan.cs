@@ -45,13 +45,18 @@ namespace LemonadeStand
                         break;
                     }
             }
-            if (player.recipe.pricePerCup <= .15)
+
+            if (player.recipe.pricePerCup > 5)
+            {
+                chanceToBuy -= 100;
+            }
+            else if (player.recipe.pricePerCup <= .15)
             {
                 chanceToBuy += 100;
             }
             else if (player.recipe.pricePerCup > .75)
             {
-                chanceToBuy -= 25;
+                chanceToBuy -= 65;
             }
             return (chanceToBuy >= 100);
         }
