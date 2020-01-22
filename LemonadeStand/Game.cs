@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace LemonadeStand
 {
-    class Game
+    public class Game
     {
         Player player;
         List<Day> days;

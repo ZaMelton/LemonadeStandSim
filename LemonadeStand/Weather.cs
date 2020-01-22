@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Weather
+    public class Weather
     {
         public string condition;
         public int temperature;
         private List<string> weatherConditions;
 
+        public Weather(Random rand)
+        {
+            weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy" };
+            this.condition = SetCondition(rand);
+            this.temperature = SetTemperature(rand);
+        }
         public Weather(int condition, Random rand)
         {
+            weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy" };
             this.condition = weatherConditions[condition];
             this.temperature = SetTemperature(rand);
-            weatherConditions = new List<string> { "Rainy", "Cloudy", "Sunny", "Windy" };
         }
         public int SetTemperature(Random rand)
         {
@@ -34,6 +40,19 @@ namespace LemonadeStand
                     Console.WriteLine("DEV MESSAGE: You set the weather condition wrong");
                     return 0;
             }
+        }
+        public string SetCondition(Random rand)
+        {
+            int index = GetIndex(rand);
+            return weatherConditions[index];
+        }
+        public string SetConditionTest(int index, Random rand)
+        {
+            return weatherConditions[index];
+        }
+        public int GetIndex(Random rand)
+        {
+            return rand.Next(3);
         }
     }
 }

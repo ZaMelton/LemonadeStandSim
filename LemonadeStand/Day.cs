@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace LemonadeStand
 {
-    class Day
+    public class Day
     {
         public Weather weather;
         public List<Customer> customers;
@@ -18,21 +18,24 @@ namespace LemonadeStand
 
         public Day(int day, Random rand)
         {
-            this.weather = SetWeather(rand);
-            this.day = dayList[day % 7];
             dayList = new string[7] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             customers = new List<Customer> { new Lady(), new OldMan(), new Kid(), new Alien() };
+            this.weather = SetWeather(rand);
+            this.day = dayList[day % 7];
             potentialCustomers = 40;
             hoursInDay = 8;
         }
         public Weather SetWeather(Random rand)
         {
-           int condition = rand.Next(4);
-            return new Weather(condition, rand);
+           return new Weather(rand);
         }
         public string GetForecast()
         {
             return $"{weather.condition} and {weather.temperature} degrees";
+        }
+        public string GetForecastTest(string condition, int temperature)
+        {
+            return $"{condition} and {temperature} degrees";
         }
     }
 }
